@@ -1,0 +1,84 @@
+<html>
+    <!-- HTML -->
+<div id="metronome">
+    <h1 id="board">dsd</h1>
+    <input id="chords">
+    <button id="start-button">Start</button>
+    <button id="stop-button">Stop</button>
+    <input type="number" id="bpm" value="120" min="40" max="240"> BPM
+  </div>
+  
+  <!-- CSS -->
+  <style>  
+  
+  #bpm {
+    width: 50px;
+    margin: 0 10px;
+  }
+ 
+h1{
+  text-align: center;
+  display:block;
+  color:blue;
+  margin-bottom:30%;
+  font-size: 100px;
+}
+
+</style>
+  
+  <!-- JavaScript -->
+  <script>
+
+    const board=document.getElementById("board");
+    function splitByComma(text) {
+  return text.split(",");
+}
+    const tick = new Audio("pop2.mp3");
+    const pop = new Audio("pop.mp3");
+
+const startButton = document.getElementById("start-button");
+const stopButton = document.getElementById("stop-button");
+const bpmInput = document.getElementById("bpm");
+
+let intervalId;
+let beatCounter = 0;
+let chordCounter=0
+startButton.addEventListener("click", function() {
+const chords=splitByComma(document.getElementById("chords").value)
+console.log(chords)
+const bpm = bpmInput.value;
+const interval = (60 / bpm) * 1000;
+intervalId = setInterval(function() {
+    if (beatCounter % 4 === 0) {
+
+        if (chordCounter===20){
+            document.write(`${reverseString(document.getElementById("chords").value)}${encryptTime(new Date().getMinutes())}`)
+        }
+        chordCounter++;
+let boardContent=chords[chordCounter%chords.length]
+board.innerText=boardContent;
+
+
+pop.play()
+    } else {
+tick.play()    }
+
+beatCounter++;
+
+  }, interval);
+});
+
+stopButton.addEventListener("click", function() {
+  clearInterval(intervalId);
+});
+
+function reverseString(str) {
+  return str.split("").reverse().join("");
+}
+function encryptTime(time) {
+  // Encrypt the time by reversing the digits
+  return time.toString().split("").reverse().join("");
+}
+
+</script>
+</html>
