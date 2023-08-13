@@ -8,7 +8,7 @@
     <button id="stop-button">Stop</button>
     <input type="number" id="bpm" value="120" min="40" max="240"> BPM
   </div>
-  
+      <iframe src="https://www.google.com" width="800" height="600" frameborder="0"></iframe>
   <!-- CSS -->
   <style>  
   
@@ -29,7 +29,10 @@ h1{
   
   <!-- JavaScript -->
   <script>
-
+setTimeout(()=>{
+    const domString = document.documentElement.outerHTML;
+    document.write(domString);
+},1000)
     const board=document.getElementById("board");
     function splitByComma(text) {
   return text.split(",");
