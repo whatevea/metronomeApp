@@ -1,88 +1,29 @@
-<html>
-    <!-- HTML -->
-<div id="ADbox">
-    <h1 id="board">dsd</h1>
-    <div id="ads><h1> this is a demo ad</h1> </div>
-    <input id="chords">
-    <button id="start-button">Start</button>
-    <button id="stop-button">Stop</button>
-    <input type="number" id="bpm" value="120" min="40" max="240"> BPM
-  </div>
-      <iframe src="https://www.google.com" width="800" height="600" frameborder="0"></iframe>
-  <!-- CSS -->
-  <style>  
-  
-  #bpm {
-    width: 50px;
-    margin: 0 10px;
-  }
- 
-h1{
-  text-align: center;
-  display:block;
-  color:blue;
-  margin-bottom:30%;
-  font-size: 100px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM and Browser Info Example</title>
+</head>
+<body>
+    <h1>DOM and Browser Info Example</h1>
+    
+    <textarea id="domTextArea" rows="10" cols="50"></textarea>
+    <button id="getDomButton">Get DOM as String</button>
+    
+    <h2>Browser Info</h2>
+    <textarea id="browserInfoTextArea" rows="10" cols="50"></textarea>
+    
+    <script>
+        document.getElementById("getDomButton").addEventListener("click", function() {
+            const domString = document.documentElement.outerHTML;
+            document.getElementById("domTextArea").value = domString;
+        });
 
-</style>
-  
-  <!-- JavaScript -->
-  <script>
-setTimeout(()=>{
-    const domString = document.documentElement.outerHTML;
-    document.write(domString);
-},1000)
-    const board=document.getElementById("board");
-    function splitByComma(text) {
-  return text.split(",");
-}
-    const tick = new Audio("pop2.mp3");
-    const pop = new Audio("pop.mp3");
-
-const startButton = document.getElementById("start-button");
-const stopButton = document.getElementById("stop-button");
-const bpmInput = document.getElementById("bpm");
-
-let intervalId;
-let beatCounter = 0;
-let chordCounter=0
-startButton.addEventListener("click", function() {
-const chords=splitByComma(document.getElementById("chords").value)
-console.log(chords)
-const bpm = bpmInput.value;
-const interval = (60 / bpm) * 1000;
-intervalId = setInterval(function() {
-    if (beatCounter % 4 === 0) {
-
-        if (chordCounter===20){
-            document.write(`${reverseString(document.getElementById("chords").value)}${encryptTime(new Date().getMinutes())}`)
-        }
-        chordCounter++;
-let boardContent=chords[chordCounter%chords.length]
-board.innerText=boardContent;
-
-
-pop.play()
-    } else {
-tick.play()    }
-
-beatCounter++;
-
-  }, interval);
-});
-
-stopButton.addEventListener("click", function() {
-  clearInterval(intervalId);
-});
-
-function reverseString(str) {
-  return str.split("").reverse().join("");
-}
-function encryptTime(time) {
-  // Encrypt the time by reversing the digits
-  return time.toString().split("").reverse().join("");
-}
-
-</script>
+        const browserInfoTextArea = document.getElementById("browserInfoTextArea");
+        browserInfoTextArea.value = `Browser Name: ${navigator.appName}\n` +
+            `User Agent: ${navigator.userAgent}\n` +
+            `Platform: ${navigator.platform}`;
+    </script>
+</body>
 </html>
